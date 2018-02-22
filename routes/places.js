@@ -3,6 +3,7 @@ var router = express.Router();
 var Place = require ("../models/Place.js")
 
 /* GET users listing. */
+
 //Listo todos los Places
 router.get('/', function(req, res, next) {
   Place.find()
@@ -12,8 +13,9 @@ router.get('/', function(req, res, next) {
 
 //Renderiza la pagina del formulario
 router.get('/new', function(req, res, next) {
-  res.render("newPlace")
+  res.render("places/newPlace")
 });
+
 //Leer el formulario
 router.post('/new', function(req,res,next){
   console.log("entrando a mi post")
@@ -28,21 +30,15 @@ router.post('/new', function(req,res,next){
   })
 
   form.save()
-    .then(()=> console.log("conseguido!!!"))
-    .catch(() =>console.log("la has cagao hermano"))
+    .then(()=> res.redirect("/places"))
+    .catch(err =>res.render("error",{err}))
 });
 
-router.get(':id', function(req,res,next){
+//Ruta para abrir un solo Place
+router.get('/:id', function(req,res,next){
   Place.findById (req.params.id)
-    .then(pennywise => res.render("singlePlace",{singlePlace:pennywise}))
+    .then(pennywise => res.render("places/singlePlace",{singlePlace:pennywise}))
     .catch(err => res.render("error", {err:err}));
-});
-
-router.post('/new', function(req, res, next) {
-  res.render("index")
-});
-router.post('/', function(req, res, next) {
-  res.render("index")
 });
 
 

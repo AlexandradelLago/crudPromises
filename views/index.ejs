@@ -5,7 +5,28 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+
     <h1>entro a places</h1>
-  
+    <a href="/places/new"> Genera un nuevo place</a>
+
+    <h3>Aqui tienes los places que tu tienes en la base de datos</h3>
+
+    <%places.forEach(function(e){ %>
+      <a href="/places/<%=e.id%>"><%=e.name%></a> 
+      <br>
+    <%})%>
+    
+    <div id="map"></div>
+
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.js"
+    integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
+    crossorigin="anonymous"></script>
+    <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUeQXCyJDlhOtCB8JwWAk8zCxpjk6k-jo">
+    </script>
+    <script type="text/javascript">
+      var myPlaces = <%- JSON.stringify(places) %>;
+    </script>
+    <script src="/javascripts/main.js"></script>
   </body>
 </html>
